@@ -85,7 +85,7 @@ async def show_upcoming_matches(update: Update, context: ContextTypes.DEFAULT_TY
     )
 
 async def show_team_stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # Formata a mensagem de estatísticas
+    
     response = (
         "📊 Estatísticas da FURIA 📊\n\n"
         f"⚡ Current Win Streak: {FURIA_STATS['win_streak']}\n"
@@ -96,11 +96,11 @@ async def show_team_stats(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         "🗺️ Map Stats (últimos 3 meses):\n"
     )
     
-    # Adiciona estatísticas dos mapas
+    
     for map_name, win_rate in FURIA_STATS['map_stats'].items():
         response += f"• {map_name}: {win_rate} win rate\n"
     
-    # Cria botão de voltar
+    
     keyboard = [[InlineKeyboardButton("↩ Voltar", callback_data='voltar')]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.callback_query.edit_message_text(
@@ -110,12 +110,12 @@ async def show_team_stats(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Log the error and send a telegram message to notify the developer."""
-    # Only send msg if it's a BadRequest (message not modified)
+    
     if isinstance(context.error, telegram.error.BadRequest):
         if "Message is not modified" in str(context.error):
             return
     
-    # Para outros erros, você pode querer notificar o usuário
+    
     try:
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
